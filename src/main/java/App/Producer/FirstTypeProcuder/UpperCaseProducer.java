@@ -2,6 +2,7 @@ package App.Producer.FirstTypeProcuder;
 
 import App.Consumer.Consumer;
 import App.HashMD5.hashMD5;
+import App.Resource.Resource;
 import lombok.*;
 
 import java.util.List;
@@ -11,20 +12,18 @@ public class UpperCaseProducer implements Runnable {
 
     private List<String> words;
 
-    private Consumer consumer;
+    private List<String> passwords;
 
-    private String password;
+    private Resource resource;
 
     @Override
     public void run() {
-        while (!Thread.interrupted()) {
-            for(String word: words){
-                if(password.equals(hashMD5.stringToMD5(word.toUpperCase()))) {
-                    consumer.putAndDisplay(word);
+        for (String password : passwords) {
+            for (String word : words) {
+                if (password.equals(hashMD5.stringToMD5(word.toUpperCase()))) {
+                    resource.put(word);
                 }
             }
         }
     }
-
-
 }

@@ -13,7 +13,7 @@ import java.security.MessageDigest;
 public class hashMD5 {
 
     @SneakyThrows
-    public static String stringToMD5(String word)  {
+    public static String stringToMD5(String word) {
 
         byte[] bytesOfWord = word.getBytes(StandardCharsets.UTF_8);
         MessageDigest md5 = MessageDigest.getInstance("MD5");

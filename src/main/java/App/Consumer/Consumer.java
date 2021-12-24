@@ -1,23 +1,20 @@
 package App.Consumer;
 
-import lombok.Getter;
+import App.Resource.Resource;
+import lombok.AllArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
+@AllArgsConstructor
+public class Consumer implements Runnable {
 
-@Getter
-public class Consumer {
+    private Resource resource;
 
-    private final List<String> passwordsCracked;
-
-    public Consumer() {
-        this.passwordsCracked = new ArrayList<>();
-    }
-
-    public synchronized void putAndDisplay(String password) {
-            if (!passwordsCracked.contains(password)) {
-                passwordsCracked.add(password);
-            }
-            System.out.println(passwordsCracked);
+    @Override
+    public void run() {
+        try {
+            resource.display();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
+

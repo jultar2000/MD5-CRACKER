@@ -1,39 +1,39 @@
 package App;
 
 import App.Consumer.Consumer;
+import App.FileManagment.FileReader;
+import App.Producer.FirstTypeProcuder.FirstCapitalProducer;
 import App.Producer.FirstTypeProcuder.LowerCaseProducer;
 import App.Producer.FirstTypeProcuder.UpperCaseProducer;
+import App.Resource.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
 public class Main {
     public static void main(String[] args) {
 
-        List<String> listOfPasswords = new ArrayList<>();
-        List<String> listOfWords = new ArrayList<>();
-        Scanner scanner = new Scanner(System.in);
+        List<String> listOfPasswords;
+        List<String> listOfWords;
+        List<Thread> listOfThreads = new ArrayList<>();
+//      Scanner scanner = new Scanner(System.in);
+//      System.out.println("Pass the name of the passwords resource: ");
+//      String fileName = scanner.nextLine();
+        listOfPasswords = FileReader.getAllDataFromFile("passwords.txt");
+        listOfWords = FileReader.getAllDataFromFile("dictionary.txt");
 
-//    System.out.println("Pass the name of the passwords resource: ");
-//    //String fileName = scanner.nextLine();
-//    listOfPasswords = FileReader.getAllDataFromFile("passwords.txt");
-//    listOfWords = FileReader.getAllDataFromFile("dictionary.txt");
-//    System.out.println(listOfPasswords);
+        //initialize consumer
+        Resource resource = new Resource();
 
-        listOfPasswords.add("8621ffdbc5698829397d97767ac13db3");
-        listOfPasswords.add("276f8db0b86edaa7fc805516c852c889");
-        listOfWords.add("dragon");
-        listOfWords.add("DRAGON");
-        listOfWords.add("baseball");
+        //initialize threads and add them to the list
+        listOfThreads.add(new Thread(new LowerCaseProducer(listOfWords, listOfPasswords, resource)));
+        listOfThreads.add(new Thread(new UpperCaseProducer(listOfWords, listOfPasswords, resource)));
+        listOfThreads.add(new Thread(new FirstCapitalProducer(listOfWords, listOfPasswords, resource)));
+        Thread consumerThread = new Thread(new Consumer(resource));
 
-        Consumer consumer = new Consumer();
-        Thread thread1 = new Thread(new LowerCaseProducer(listOfWords, consumer, listOfPasswords.get(0)));
-        Thread thread2 = new Thread(new UpperCaseProducer(listOfWords, consumer, listOfPasswords.get(0)));
-
-        thread1.start();
-        thread2.start();
-
+        //start threads
+        consumerThread.start();
+        listOfThreads.forEach(Thread::start);
     }
 }

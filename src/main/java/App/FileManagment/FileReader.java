@@ -14,7 +14,7 @@ public class FileReader {
     @SneakyThrows
     public static List<String> getAllDataFromFile(String fileName) {
         List<String> listOfPasswords = new ArrayList<>();
-        URL resource = FileReader.class.getResource("/resources/" + fileName);
+        URL resource = FileReader.class.getClassLoader().getResource(fileName);
 
         BufferedReader reader = null;
         if (resource != null) {
