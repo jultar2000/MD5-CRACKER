@@ -1,6 +1,5 @@
 package App.Producer.FirstTypeProcuder;
 
-import App.Consumer.Consumer;
 import App.HashMD5.hashMD5;
 import App.Resource.Resource;
 import lombok.AllArgsConstructor;
@@ -18,12 +17,17 @@ public class LowerCaseProducer implements Runnable {
 
     @Override
     public void run() {
+        int add_num = 0;
+        while (!Thread.interrupted()) {
             for (String password : passwords) {
                 for (String word : words) {
-                    if (password.equals(hashMD5.stringToMD5(word.toLowerCase()))) {
+                    String password_tmp = add_num + password + add_num;
+                    if (password_tmp.equals(hashMD5.stringToMD5(word.toLowerCase()))) {
                         resource.put(word);
                     }
                 }
             }
+            add_num++;
+        }
     }
 }

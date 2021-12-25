@@ -1,6 +1,5 @@
 package App.Producer.FirstTypeProcuder;
 
-import App.Consumer.Consumer;
 import App.HashMD5.hashMD5;
 import App.Resource.Resource;
 import lombok.*;
@@ -18,6 +17,8 @@ public class FirstCapitalProducer implements Runnable {
 
     @Override
     public void run() {
+
+        while (!Thread.interrupted()) {
             for (String password : passwords) {
                 for (String word : words) {
                     String firstLetter = word.substring(0, 1).toUpperCase();
@@ -28,5 +29,7 @@ public class FirstCapitalProducer implements Runnable {
                     }
                 }
             }
+            break;
+        }
     }
 }

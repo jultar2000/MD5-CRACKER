@@ -14,26 +14,35 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        List<String> listOfPasswords;
         List<String> listOfWords;
-        List<Thread> listOfThreads = new ArrayList<>();
-//      Scanner scanner = new Scanner(System.in);
-//      System.out.println("Pass the name of the passwords resource: ");
-//      String fileName = scanner.nextLine();
-        listOfPasswords = FileReader.getAllDataFromFile("passwords.txt");
+        List<String> listOfPasswords;
+        List<Thread> listOfThreads;
+        String passwordsFileName = "passwords.txt";
+        Scanner scanner = new Scanner(System.in);
+
+        //default configuration
         listOfWords = FileReader.getAllDataFromFile("dictionary.txt");
+        listOfPasswords = FileReader.getAllDataFromFile(passwordsFileName);
 
-        //initialize consumer
-        Resource resource = new Resource();
+        while (true) {
+            listOfThreads = new ArrayList<>();
+            //initialize consumer
+            Resource resource = new Resource();
 
-        //initialize threads and add them to the list
-        listOfThreads.add(new Thread(new LowerCaseProducer(listOfWords, listOfPasswords, resource)));
-        listOfThreads.add(new Thread(new UpperCaseProducer(listOfWords, listOfPasswords, resource)));
-        listOfThreads.add(new Thread(new FirstCapitalProducer(listOfWords, listOfPasswords, resource)));
-        Thread consumerThread = new Thread(new Consumer(resource));
+            //initialize threads and add them to the list
+            listOfThreads.add(new Thread(new LowerCaseProducer(listOfWords, listOfPasswords, resource)));
+            listOfThreads.add(new Thread(new UpperCaseProducer(listOfWords, listOfPasswords, resource)));
+            listOfThreads.add(new Thread(new FirstCapitalProducer(listOfWords, listOfPasswords, resource)));
+            listOfThreads.add(new Thread(new Consumer(resource)));
 
-        //start threads
-        consumerThread.start();
-        listOfThreads.forEach(Thread::start);
+            //start threads
+            listOfThreads.forEach(Thread::start);
+
+            System.out.println("Pass the name of the passwords file to crack:");
+            passwordsFileName = scanner.nextLine();
+            listOfPasswords = FileReader.getAllDataFromFile(passwordsFileName);
+
+            listOfThreads.forEach(Thread::interrupt);
+        }
     }
 }

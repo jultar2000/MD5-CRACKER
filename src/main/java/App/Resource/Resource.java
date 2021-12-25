@@ -13,13 +13,19 @@ public class Resource {
         while (newCrackedPassword == null) {
             wait();
         }
+        System.out.println("New password found!");
+        System.out.println(newCrackedPassword);
         newCrackedPassword = null;
+    }
+
+    public void displayAll(){
+        System.out.println("Final passwords cracked: ");
         System.out.println(passwordsCracked);
     }
 
     public synchronized void put(String password) {
         passwordsCracked.add(password);
         newCrackedPassword = password;
-        notify();
+        notifyAll();
     }
 }

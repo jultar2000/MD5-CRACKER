@@ -10,10 +10,12 @@ public class Consumer implements Runnable {
 
     @Override
     public void run() {
-        try {
-            resource.display();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        while (!Thread.interrupted()) {
+            try {
+                resource.display();
+            } catch (InterruptedException e) {
+                break;
+            }
         }
     }
 }
