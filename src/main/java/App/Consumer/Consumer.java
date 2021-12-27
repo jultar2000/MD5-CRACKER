@@ -14,6 +14,7 @@ public class Consumer implements Runnable {
             try {
                 resource.display();
             } catch (InterruptedException e) {
+                resource.displayAll();
                 break;
             }
         }
