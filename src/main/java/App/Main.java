@@ -24,6 +24,8 @@ public class Main {
         listOfWords = FileReader.getAllDataFromFile("dictionary.txt");
         listOfPasswords = FileReader.getAllDataFromFile(passwordsFileName);
 
+        System.out.println("cos" + 2);
+
         while (true) {
             listOfThreads = new ArrayList<>();
             //initialize consumer

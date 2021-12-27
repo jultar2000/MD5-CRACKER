@@ -18,14 +18,14 @@ public class Resource {
         newCrackedPassword = null;
     }
 
-    public void displayAll(){
-        System.out.println("Final passwords cracked: ");
-        System.out.println(passwordsCracked);
-    }
-
     public synchronized void put(String password) {
         passwordsCracked.add(password);
         newCrackedPassword = password;
         notifyAll();
+    }
+
+    public void displayAll(){
+        System.out.println("Final passwords cracked: ");
+        System.out.println(passwordsCracked);
     }
 }

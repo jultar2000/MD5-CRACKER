@@ -21,8 +21,8 @@ public class LowerCaseProducer implements Runnable {
         while (!Thread.interrupted()) {
             for (String password : passwords) {
                 for (String word : words) {
-                    String password_tmp = add_num + password + add_num;
-                    if (password_tmp.equals(hashMD5.stringToMD5(word.toLowerCase()))) {
+                    String word_tmp = add_num + word + add_num;
+                    if (word_tmp.equals(hashMD5.stringToMD5(password.toLowerCase()))) {
                         resource.put(word);
                     }
                 }

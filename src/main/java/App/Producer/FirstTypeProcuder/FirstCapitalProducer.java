@@ -1,6 +1,7 @@
 package App.Producer.FirstTypeProcuder;
 
 import App.HashMD5.hashMD5;
+import App.Helpers.ToFirstCapitalConverter;
 import App.Resource.Resource;
 import lombok.*;
 
@@ -21,9 +22,7 @@ public class FirstCapitalProducer implements Runnable {
         while (!Thread.interrupted()) {
             for (String password : passwords) {
                 for (String word : words) {
-                    String firstLetter = word.substring(0, 1).toUpperCase();
-                    String otherLetters = word.substring(1).toLowerCase();
-                    word = firstLetter + otherLetters;
+                    word = ToFirstCapitalConverter.convert(word);
                     if (password.equals(hashMD5.stringToMD5(word))) {
                         resource.put(password);
                     }
