@@ -9,7 +9,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
 
-        Set<String> listOfPasswords;
+        Set<String> setOfPasswords;
         List<Thread> listOfThreads;
         List<String> listOfWords;
 
@@ -18,22 +18,21 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         //default configuration
-        listOfPasswords = FileReader.getPasswordsDataFromFile(passwordsFileName);
+        setOfPasswords = FileReader.getPasswordsDataFromFile(passwordsFileName);
         listOfWords = FileReader.getWordsDataFromFile(wordsFileName);
 
         while (true) {
-            listOfThreads = new ArrayList<>();
             Resource resource = new Resource();
 
             //initialize threads and add them to the list
-            listOfThreads = ThreadsInitializer.initializeThreads(listOfWords, listOfPasswords, resource);
+            listOfThreads = ThreadsInitializer.initializeThreads(listOfWords, setOfPasswords, resource);
 
             //start threads
             listOfThreads.forEach(Thread::start);
 
             System.out.println("Pass the name of the passwords file to crack:");
             passwordsFileName = scanner.nextLine();
-            listOfPasswords = FileReader.getPasswordsDataFromFile(passwordsFileName);
+            setOfPasswords = FileReader.getPasswordsDataFromFile(passwordsFileName);
 
             //stop threads
             listOfThreads.forEach(Thread::interrupt);

@@ -20,18 +20,22 @@ public class FirstCapitalMergedAddNumBetweenProducer implements Runnable {
 
     @Override
     public void run() {
+        String hashed_word;
         String first_word;
         String second_word;
         String word;
         int add_num = 0;
         while (!Thread.interrupted()) {
-            for (int i = 0; i < words.size() - 1; i++) {
-                first_word = Helper.convertToFirstCapital(words.get(i));
-                second_word = Helper.convertToFirstCapital(words.get(i + 1));
-                word = Helper.convertToWordNumWord(first_word, second_word, add_num);
-                if (passwords.contains(hashMD5.stringToMD5(word))) {
-                    passwords.remove(word);
-                    resource.put(word);
+            for (int j = 0; j < words.size() - 1; j++) {
+                first_word = Helper.convertToFirstCapital(words.get(j));
+                for (int i = j + 1; i < words.size(); i++) {
+                    second_word = Helper.convertToFirstCapital(words.get(i));
+                    word = Helper.convertToWordNumWord(first_word, second_word, add_num);
+                    hashed_word = hashMD5.stringToMD5(word);
+                    if (passwords.contains(hashed_word)) {
+                        passwords.remove(hashed_word);
+                        resource.put(word);
+                    }
                 }
             }
             add_num++;

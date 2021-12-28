@@ -19,14 +19,20 @@ public class LowerCaseMergedProducer implements Runnable {
     @Override
     public void run() {
         String word;
+        String first_word;
+        String hashed_word;
         while (!Thread.interrupted()) {
-                for (int i = 0; i < words.size() - 1; i++) {
-                    word = (words.get(i) + words.get(i + 1)).toLowerCase();
-                    if (passwords.contains(hashMD5.stringToMD5(word))) {
-                        passwords.remove(word);
+            for (int j = 0; j < words.size() - 1; j++) {
+                first_word = words.get(j);
+                for (int i = j + 1; i < words.size(); i++) {
+                    word = (first_word + words.get(i)).toLowerCase();
+                    hashed_word = hashMD5.stringToMD5(word);
+                    if (passwords.contains(hashed_word)) {
+                        passwords.remove(hashed_word);
                         resource.put(word);
                     }
                 }
+            }
         }
     }
 }

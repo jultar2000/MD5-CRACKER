@@ -19,23 +19,24 @@ public class UpperCaseMergedAddNumsProducer implements Runnable {
 
     @Override
     public void run() {
-        int j = 1;
         int add_num = 0;
         String word;
+        String first_word;
+        String hashed_word;
         while (!Thread.interrupted()) {
-            for (String password : passwords) {
-                for (int i = 0; i < words.size() - 1; i++) {
-                    word = words.get(i) + words.get(j);
+            for (int j = 0; j < words.size() - 1; j++) {
+                first_word = words.get(j);
+                for (int i = j + 1; i < words.size(); i++) {
+                    word = first_word + words.get(i);
                     word = Helper.convertToNumWordNum(word, add_num).toUpperCase();
-                    if (password.equals(hashMD5.stringToMD5(word))) {
-                        passwords.remove(password);
+                    hashed_word = hashMD5.stringToMD5(word);
+                    if (passwords.contains(hashed_word)) {
+                        passwords.remove(hashed_word);
                         resource.put(word);
                     }
-                    j++;
                 }
-                j = 1;
-                add_num++;
             }
+            add_num++;
         }
     }
 }

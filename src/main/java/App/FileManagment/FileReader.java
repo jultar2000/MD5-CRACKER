@@ -15,12 +15,6 @@ import java.util.*;
 public class FileReader {
 
     @SneakyThrows
-    public static Set<String> getPasswordsDataFromFile(String fileName) {
-        Set<String> setOfPasswords = Collections.synchronizedSet(new HashSet<String>());
-        return getDataToHashSet(fileName, setOfPasswords);
-    }
-
-    @SneakyThrows
     public static List<String> getWordsDataFromFile(String fileName) {
         List<String> listOfPasswords =  new ArrayList<>();
         return getDataToList(fileName, listOfPasswords);
@@ -37,6 +31,12 @@ public class FileReader {
             reader.lines().forEach(listOfPasswords::add);
         }
         return listOfPasswords;
+    }
+
+    @SneakyThrows
+    public static Set<String> getPasswordsDataFromFile(String fileName) {
+        Set<String> setOfPasswords = Collections.synchronizedSet(new HashSet<>());
+        return getDataToHashSet(fileName, setOfPasswords);
     }
 
     private static Set<String> getDataToHashSet(String fileName, Set<String> setOfPasswords) throws IOException, URISyntaxException {

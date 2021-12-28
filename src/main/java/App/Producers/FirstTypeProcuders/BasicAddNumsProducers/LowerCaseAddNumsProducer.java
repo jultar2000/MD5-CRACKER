@@ -5,7 +5,6 @@ import App.Helpers.Helper;
 import App.Resource.Resource;
 import lombok.AllArgsConstructor;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -21,11 +20,13 @@ public class LowerCaseAddNumsProducer implements Runnable {
     @Override
     public void run() {
         int add_num = 0;
+        String hashed_word;
         while (!Thread.interrupted()) {
             for (String word : words) {
                 word = Helper.convertToNumWordNum(word, add_num).toLowerCase();
-                if (passwords.contains(hashMD5.stringToMD5(word))) {
-                    passwords.remove(word);
+                hashed_word = hashMD5.stringToMD5(word);
+                if (passwords.contains(hashed_word)) {
+                    passwords.remove(hashed_word);
                     resource.put(word);
                 }
             }

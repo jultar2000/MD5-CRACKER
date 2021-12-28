@@ -13,13 +13,15 @@ import App.Producers.SecondTypeProducers.BasicAddNumsProducers.AddBetweenProduce
 import App.Producers.SecondTypeProducers.BasicAddNumsProducers.AddNumsProducers.FirstCapitalMergedAddNumsProducer;
 import App.Producers.SecondTypeProducers.BasicAddNumsProducers.AddNumsProducers.LowerCaseMergedAddNumsProducer;
 import App.Producers.SecondTypeProducers.BasicAddNumsProducers.AddNumsProducers.UpperCaseMergedAddNumsProducer;
+import App.Producers.SecondTypeProducers.BasicAddSpecialBetweenProducers.FirstCapitalMergedAddSpecialBetweenProducer;
+import App.Producers.SecondTypeProducers.BasicAddSpecialBetweenProducers.LowerCaseMergedAddSpecialBetweenProducer;
+import App.Producers.SecondTypeProducers.BasicAddSpecialBetweenProducers.UpperCaseMergedAddSpecialBetweenProducer;
 import App.Producers.SecondTypeProducers.BasicProducers.FirstCapitalMergedProducer;
 import App.Producers.SecondTypeProducers.BasicProducers.LowerCaseMergedProducer;
 import App.Producers.SecondTypeProducers.BasicProducers.UpperCaseMergedProducer;
 import App.Resource.Resource;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,8 +33,8 @@ public class ThreadsInitializer {
 
         List<Thread> listOfThreads = new ArrayList<>();
 
-//        //First type basic producers
-          listOfThreads.add(new Thread(new LowerCaseProducer(listOfWords, setOfPasswords, resource)));
+        //First type basic producers
+        listOfThreads.add(new Thread(new LowerCaseProducer(listOfWords, setOfPasswords, resource)));
         listOfThreads.add(new Thread(new UpperCaseProducer(listOfWords, setOfPasswords, resource)));
         listOfThreads.add(new Thread(new FirstCapitalProducer(listOfWords, setOfPasswords, resource)));
 
@@ -57,9 +59,9 @@ public class ThreadsInitializer {
         listOfThreads.add(new Thread(new FirstCapitalMergedAddNumBetweenProducer(listOfWords, setOfPasswords, resource)));
 
         //Second type add special between producers
-//        listOfThreads.add(new Thread(new LowerCaseMergedAddSpecialBetweenProducer(listOfWords, listOfPasswords, resource)));
-//        listOfThreads.add(new Thread(new UpperCaseMergedAddSpecialBetweenProducer(listOfWords, listOfPasswords, resource)));
-//        listOfThreads.add(new Thread(new FirstCapitalMergedAddSpecialBetweenProducer(listOfWords, listOfPasswords, resource)));
+        listOfThreads.add(new Thread(new LowerCaseMergedAddSpecialBetweenProducer(listOfWords, setOfPasswords, resource)));
+        listOfThreads.add(new Thread(new UpperCaseMergedAddSpecialBetweenProducer(listOfWords, setOfPasswords, resource)));
+        listOfThreads.add(new Thread(new FirstCapitalMergedAddSpecialBetweenProducer(listOfWords, setOfPasswords, resource)));
 
         listOfThreads.add(new Thread(new Consumer(resource)));
 

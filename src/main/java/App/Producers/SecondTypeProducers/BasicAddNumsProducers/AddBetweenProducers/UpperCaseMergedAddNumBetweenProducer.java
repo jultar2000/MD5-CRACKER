@@ -22,14 +22,20 @@ public class UpperCaseMergedAddNumBetweenProducer implements Runnable {
     public void run() {
         int add_num = 0;
         String word;
+        String hashed_word;
+        String first_word;
         while (!Thread.interrupted()) {
-                for (int i = 0; i < words.size() - 1; i++) {
-                    word = Helper.convertToWordNumWord(words.get(i),words.get(i+1), add_num).toUpperCase();
-                    if (passwords.contains(hashMD5.stringToMD5(word))) {
-                        passwords.remove(word);
+            for (int j = 0; j < words.size() - 1; j++) {
+                first_word = words.get(j);
+                for (int i = j + 1; i < words.size(); i++) {
+                    word = Helper.convertToWordNumWord(first_word, words.get(i), add_num).toUpperCase();
+                    hashed_word = hashMD5.stringToMD5(word);
+                    if (passwords.contains(hashed_word)) {
+                        passwords.remove(hashed_word);
                         resource.put(word);
                     }
                 }
+            }
                 add_num++;
         }
     }

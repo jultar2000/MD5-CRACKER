@@ -16,4 +16,10 @@ public class Helper {
     public static String convertToWordNumWord(String first_word, String second_word, int num) {
         return first_word + num + second_word;
     }
+
+    public static String convertToWordSignWord(String first_word, String second_word, char sign){
+        return first_word + sign + second_word;
+    }
+
+
 }
